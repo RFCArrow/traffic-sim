@@ -6,12 +6,69 @@
 
 {% block content %}
 	<head>
-		<h1>Trafic Sim<h1/>
+		<h1>Traffic Sim<h1/>
 	</head>
 	<!--
     <canvas id="myCanvas" width="600" height="600" style="border:1px solid #000000;">
     </canvas>
 	-->
+<body id="dashboard">
+    <div id="wrapper">
+        <!-- Insight panel -->
+        <section id="insight">
+            <div class="info">
+                <h1>Optimal transport space</h1>
+                <p class="location">Oxford Street, London</p>
+                <p class="day">Monday</p>
+                <p class="time">12:00</p>
+                <p class="">Text block</p>
+            </div>
+            <div class="output">
+            </div>
+        </section>
+        <!-- Parameters panel -->
+        <section id="para">
+            <div class="para-block">
+                <p class="para-name">Parameter</p>
+                <img class="para-icon"/>
+                <div class="slidecontainer">
+                    <input type="range" min="1" max="100" value="50" class="slider" id="para-1">
+                    <p id="value-1"></p>
+                </div>
+            </div>
+            <div class="para-block">
+                <p class="para-name">Parameter</p>
+                <img class="para-icon"/>
+                <div class="slidecontainer">
+                    <input type="range" min="0" max="1440" value="0" class="slider" id="timeSlider">
+                    <p id="timeSliderPara"></p>
+                </div>
+            </div>
+            <div class="para-block">
+                <p class="para-name">Parameter</p>
+                <img class="para-icon"/>
+                <div class="slidecontainer">
+                    <input type="range" min="1" max="100" value="70" class="slider" id="para-2">
+                    <p id="value-2"></p>
+                </div>
+            </div>
+        </section>
+        <!-- Visualisation panel -->
+        <section id="vis">
+            <p>Vis</p>
+        </section>
+        <!-- Script -->
+        <script>
+            var slider = document.getElementById("para-1");
+            var output = document.getElementById("value-1");
+            output.innerHTML = slider.value;
+            slider.oninput = function() {
+              output.innerHTML = this.value;
+            }
+        </script>
+    </div>
+</body>
+
 {% endblock %}
 
 {% block scripts %}

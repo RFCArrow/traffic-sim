@@ -12,23 +12,23 @@ Bootstrap(app)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, async_mode=async_mode)
 
+timeValue = 0
+
 thread = None
 
 def background_thread():
     """Example of how to send server generated events to clients"""
     print("Starting background thread")
-    count = 0
+    timeValue = 0
     while True:
-        socketio.sleep(0.5)
-        count += 1
-        print("Sending packet: ", count)
-        data = {'x1': random.randint(0,600),
-                'y1': random.randint(0,600),
-                'x2': random.randint(0,600),
-                'y2': random.randint(0,600),
-                'r': random.randint(0,40),
-                'colour': random.randint(0,0xffffff),
-                'type': 'line'}
+        socketio.sleep(1)
+        timeValue += 5
+        timeValue % (24*60)
+        # print("Sending packet: ", count)
+        data = {'CarDemand': random.randint(0,1000),
+                'CyleDemand': random.randint(0,1000),
+                'PollutionScore': random.randint(0,100),
+                'Time': timeValue}
         socketio.emit('uplink', data)
 
 
@@ -51,6 +51,11 @@ def socket_connect():
 def socket_disconnect():
     print('Client disconnected', request.sid)
 
+@socketio.on('time')
+def time(recievedValue):
+    timeValue = receivedValue;
+    print('Updated Time Value: ', timeValue)
+
 @socketio.on('uplink')
 def socket_uplink(data):
     socketio.emit(data)
@@ -63,5 +68,4 @@ if __name__ == '__main__':
         print('Shutting down server')
 
 
-    
 
