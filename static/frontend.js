@@ -14,12 +14,11 @@ function handle_uplink(data){
 	slider.value = data.Time;
 }
 
-function handle_downlink(data){
+function setup_downlink(socket){
 	var slider = document.getElementById("timeSlider");
 	slider.oninput = function(){
 		socket.emit('time', slider.value);
 	};
-	slider.value = data.Time;
 }
 
 
@@ -35,6 +34,7 @@ function init_socket(socket){
         socket.on('connect', function(){
             //Send connection message
             socket.send('Connected');
+			setup_downlink(socket);
         });
 
         //Handle data from server

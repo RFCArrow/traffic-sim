@@ -19,7 +19,8 @@ thread = None
 def background_thread():
     """Example of how to send server generated events to clients"""
     print("Starting background thread")
-    timeValue = 0
+    global timeValue
+    timeValue = 0 
     while True:
         socketio.sleep(1)
         timeValue += 5
@@ -52,8 +53,9 @@ def socket_disconnect():
     print('Client disconnected', request.sid)
 
 @socketio.on('time')
-def time(recievedValue):
-    timeValue = receivedValue;
+def time(receivedValue):
+    global timeValue
+    timeValue = int(receivedValue);
     print('Updated Time Value: ', timeValue)
 
 @socketio.on('uplink')
