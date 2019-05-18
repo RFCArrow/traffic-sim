@@ -2,7 +2,10 @@
 var socket_handle;
 init_socket(socket_handle);
 
-// End of Main
+function handleSlider(data){
+	var slider = document.getElementById("timeSlider");
+	slider.value = data.Time;
+}
 
 function handle_uplink(data){
     // Just test to make sure data is received
@@ -10,8 +13,10 @@ function handle_uplink(data){
     // alert("Data received!");
     //console.log(data);
     // Pass data into relevant rendering fuction
-	var slider = document.getElementById("timeSlider");
-	slider.value = data.Time;
+	handleCarLanes(data);
+	handleCycleLanes(data);
+	handlePedestrianLanes(data);
+	handleSlider(data);
 }
 
 function setup_downlink(socket){

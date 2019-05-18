@@ -128,7 +128,6 @@ function getVehicleSize(vehicleType){
 }
 
 function getVehicleColour(vehicleType){
-	return 0x0000FF;
 	if(vehicleType=="car"){
 		return 0xFF00FF;
 	}
@@ -142,11 +141,12 @@ function getVehicleColour(vehicleType){
 }
 
 function updateLaneColour(lane, colour){
-	for(let i=0;i<lanes.length;i++){
-		if(lane.uuid == lanes[i].uuid){
-			lane.surface.fill.color = colour
-		}
-	}
+	lane.surface.clear();
+	lane.surface.beginFill(colour);
+	lane.surface.lineStyle(5,0xFFFFFF);
+	lane.surface.drawRect(0,lane.yPosition,app.renderer.width,lane.width);
+	lane.surface.endFill();
+	//app.stage.addChild(lane.surface);
 }
 
 function getLaneCentre(lane){

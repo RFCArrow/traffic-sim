@@ -26,8 +26,9 @@ def background_thread():
         timeValue += 5
         timeValue = timeValue % (24*60)
         # print("Sending packet: ", count)
-        data = {'CarDemand': random.randint(0,1000),
-                'CyleDemand': random.randint(0,1000),
+        data = {'CarSaturation': random.randint(0,150),
+                'CycleSaturation': random.randint(0,150),
+                'PedestrianSaturation': random.randint(0,150),
                 'PollutionScore': random.randint(0,100),
                 'Time': timeValue}
         socketio.emit('uplink', data)
