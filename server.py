@@ -24,7 +24,7 @@ def background_thread():
     while True:
         socketio.sleep(1)
         timeValue += 5
-        timeValue % (24*60)
+        timeValue = timeValue % (24*60)
         # print("Sending packet: ", count)
         data = {'CarDemand': random.randint(0,1000),
                 'CyleDemand': random.randint(0,1000),
@@ -56,6 +56,8 @@ def socket_disconnect():
 def time(receivedValue):
     global timeValue
     timeValue = int(receivedValue);
+    #Round to nearest 5 minutes
+    timeValue = timeValue - (timeValue%5)
     print('Updated Time Value: ', timeValue)
 
 @socketio.on('uplink')

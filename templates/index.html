@@ -40,14 +40,6 @@
                 <p class="para-name">Parameter</p>
                 <img class="para-icon"/>
                 <div class="slidecontainer">
-                    <input type="range" min="0" max="1440" value="0" class="slider" id="timeSlider">
-                    <p id="timeSliderPara"></p>
-                </div>
-            </div>
-            <div class="para-block">
-                <p class="para-name">Parameter</p>
-                <img class="para-icon"/>
-                <div class="slidecontainer">
                     <input type="range" min="1" max="100" value="70" class="slider" id="para-2">
                     <p id="value-2"></p>
                 </div>
@@ -56,6 +48,14 @@
         <!-- Visualisation panel -->
         <section id="vis">
             <p>Vis</p>
+            <div class="para-block">
+                <p class="para-name">Time</p>
+                <img class="para-icon"/>
+                <div class="slidecontainer">
+                    <input type="range" min="0" max="1440" value="0" class="slider" id="timeSlider">
+                    <p id="timeSliderPara"></p>
+                </div>
+            </div>
         </section>
         <!-- Script -->
         <script>
@@ -84,7 +84,7 @@
 {% block styles %}
 {{ super() }}
 <link rel = "stylesheet"
-    href = "{{url_for('.static', filename='curbStyle.css')}}">
+    href = "{{url_for('.static', filename='style.css')}}">
 {% endblock %}
 
 

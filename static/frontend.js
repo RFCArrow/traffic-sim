@@ -16,8 +16,12 @@ function handle_uplink(data){
 
 function setup_downlink(socket){
 	var slider = document.getElementById("timeSlider");
+	var sliderText = document.getElementById("timeSliderPara")
 	slider.oninput = function(){
+		// Round slider to nearest 5 minutes
+		slider.value = slider.value - (slider.value % 5)
 		socket.emit('time', slider.value);
+	 	sliderText.innerHTML = slider.value;
 	};
 }
 
