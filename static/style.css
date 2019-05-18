@@ -70,8 +70,8 @@ h1 {
     position: absolute;
     top: 0;
     right:0;
-    width: 300px;
-    align-self: center;
+    width: 600px;
+    align-self: right;
 }
 
 .chart {
@@ -79,10 +79,12 @@ h1 {
 }
 
 .score {
-    font-size: 4em;
+    font-size: 2em;
     z-index: 3;
-    text-align: center;
+    text-align: right;
     color: #4b2895;
+    margin: 0;
+    padding-right: 30px;
 }
 
 /* ––––––– Parameters panel ––––––– */

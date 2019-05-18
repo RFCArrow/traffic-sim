@@ -43,10 +43,20 @@ function handlePedestrianLanes(data){
 	}
 }
 
+function handleStatistics(data){
+	var pollutionText = document.getElementById("pollutionScore");
+	pollutionText.innerHTML = data.PollutionScore.toString()+"kg CO2";
+	var speedText = document.getElementById("speedScore");
+	speedText.innerHTML = data.AverageSpeed.toString()+"mph";
+	var delayText = document.getElementById("delayScore");
+	delayText.innerHTML = data.PassengerDelay.toString()+"mins";
+}
+
 function handle_uplink(data){
 	handleCarLanes(data);
 	handleCycleLanes(data);
 	handlePedestrianLanes(data);
+	handleStatistics(data);
 	handleSlider(data);
 }
 
