@@ -9,6 +9,7 @@ function handleSlider(data){
 }
 
 function convertSaturationToColour(saturation){
+	saturation = 3*saturation;
 	var greenValue = Math.min((2-saturation), 1);
 	var redValue = Math.min(Math.max(saturation-0.7, 0), 1);
 	var colour = PIXI.utils.rgb2hex([redValue, greenValue, 0]);
@@ -20,8 +21,6 @@ function handleCarLanes(data){
 	for(let i=0; i<lanes.length; i++){
 		if(lanes[i].vehicleType=="car"){
 			updateLaneColour(lanes[i], laneColour);
-			//updateLaneColour(lanes[i], 0xFF0000);
-			console.log(laneColour);
 		}
 	}
 }

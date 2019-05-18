@@ -1,6 +1,7 @@
 #!/user/bin/env python
 import time
 import random
+from metrics import calculateMetrics
 from flask import Flask, render_template, session, request
 from flask_socketio import SocketIO, emit, disconnect
 from flask_bootstrap import Bootstrap
@@ -20,18 +21,26 @@ def background_thread():
     """Example of how to send server generated events to clients"""
     print("Starting background thread")
     global timeValue
-    timeValue = 0 
+    global numberOfCarLanes
+    global numberOfCycleLanes
+    global numberOfBikeLanes
+    timeValue = 0
     while True:
-        socketio.sleep(1)
+        socketio.sleep(0.25)
         timeValue += 15
         timeValue = timeValue % (24*60)
         # print("Sending packet: ", count)
-        data = {'CarSaturation': random.uniform(0,2),
-                'CycleSaturation': random.uniform(0,2),
-                'PedestrianSaturation': random.uniform(0,2),
-                'PollutionScore': random.randint(0,100),
-                'PassengerDelay': random.randint(0,1000),
-                'AverageSpeed': random.randint(0,40),
+        dataFromClient = { 'time':timeValue,
+                            'flexi_count':1,
+                            'ped_dim':3.1,
+                            'road_count':2}
+        dataToClient = calculateMetrics(dataFromClient);
+        data = {'CarSaturation': dataToClient['saturations']['sat_vehicles'],
+                'CycleSaturation': dataToClient['saturations']['sat_bikes'],
+                'PedestrianSaturation': dataToClient['saturations']['sat_pedestrian'],
+                'PollutionScore': dataToClient['metrics']['co2_emissions_kg'],
+                'PassengerDelay': dataToClient['metrics']['pssgr_delay_seconds'],
+                'AverageSpeed': dataToClient['metrics']['average_speed'],
                 'Time': timeValue}
         socketio.emit('uplink', data)
 

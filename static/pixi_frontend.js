@@ -24,6 +24,19 @@ addLane("car", "west");
 addLane("cycle", "west");
 addLane("pedestrian", "west");
 
+console.log("Adding 1");
+addVehicle(lanes[0]);
+console.log("Adding 2");
+addVehicle(lanes[1]);
+console.log("Adding 3");
+addVehicle(lanes[2]);
+console.log("Adding 4");
+addVehicle(lanes[3]);
+console.log("Adding 5");
+addVehicle(lanes[4]);
+console.log("Adding 6");
+addVehicle(lanes[5]);
+
 updateLaneColour(lanes[1], 0xF0FFE0);
 
 
@@ -135,7 +148,6 @@ function getVehicleColour(vehicleType){
 }
 
 function updateLaneColour(lane, colour){
-	console.log(colour);
 	lane.surface.clear();
 	lane.surface.beginFill(colour);
 	lane.surface.lineStyle(5,0xFFFFFF);
@@ -149,15 +161,50 @@ function getLaneCentre(lane){
 	return centre;
 }
 
-function addVehicle(colour,lane){
+
+
+// function updateVehicle(lane){
+// 	for(let i=0;i<lane.vehicles.length;i++){
+// 		if(i>0){
+// 			if(distanceToNextCar(lane, i) < 5){
+// 				//decrease speed
+// 				var acceleratingVelocity = Math.max((lane.vehicles[i-1].velocity-1), 0);
+// 				lane.vehicles[i].velocity = acceleratingVelocity;
+// 			}
+// 			if(distanceToNextCar(lane, i) > 10 && ){
+// 				var acceleratingVelocity = Math.max((lane.vehicles[i-1].velocity+1), laneSpeed);
+// 				lane.vehicles[i].velocity = decleratingVelocity;
+// 			}
+// 		}
+// 		//redraw vehicle
+// 		//increment vehichle position
+// 		if(lane.direction == "east"){
+// 			lane.vehicles[i].xPosition += lane.vehicles[i].velocity;
+// 		}
+// 		if(lane.direction == "west"){
+// 			lane.vehicles[i].xPosition -= lane.vehicles[i].velocity;
+// 		}
+// 	}
+// }
+
+function distanceToNextCar(lane, i){
+	//TODO FIX!!!!
+	if(lane.direction == "east"){
+		lane.vehicles[i-1].xPosition - lane.vehicles[i].xPosition;
+	}
+	if(lane.direction == "west"){
+		lane.vehicles[i].xPosition - lan.vehicles[i-1].xPosition;
+	}
+}
+
+function addVehicle(lane){
 	var size=getVehicleSize(lane.vehicleType);
-	var colour=getVehicle
-	var yPosition = getLaneCentre();
+	var colour=getVehicleColour(lane.vehicleType);
+	var yPosition = getLaneCentre(lane);
+	var xPosition = lane.direction == "east" ? 0 : app.renderer.width;
 	let vehicle = new PIXI.Graphics()
-	vehicle.lane = lane;
-	vehicle.moveTo(0,yPosition);
 	vehicle.beginFill(colour);
-	vehicle.drawCircle(0,yPosition,size);
+	vehicle.drawCircle(xPosition,yPosition,size);
 	vehicles.push(vehicle);
 	app.stage.addChild(vehicle);
 }
