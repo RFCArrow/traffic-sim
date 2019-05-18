@@ -26,12 +26,6 @@ addLane("pedestrian", "west");
 
 updateLaneColour(lanes[1], 0xF0FFE0);
 
-// renderRoad(300, 100);
-// addLaneMarking(125);
-// addLaneMarking(250);
-// addLaneMarking(375);
-// addVehicle(187,30, 0x0000FF);
-
 
 function renderRoad(roadWidth, yPosition){
 	let road = new PIXI.Graphics();
@@ -91,7 +85,7 @@ function addLane(vehicleType, direction){
 	lanes.push(lane);
 	lane.width=getLaneWidthByVehicleType(vehicleType);
 	lane.yPosition=getLaneYPosition(lane);
-	lane.type=vehicleType;
+	lane.vehicleType=vehicleType;
 	lane.vehicles = new Array();
 	lane.surface = new PIXI.Graphics();
 	lane.surface.beginFill(0x807E78);
@@ -141,6 +135,7 @@ function getVehicleColour(vehicleType){
 }
 
 function updateLaneColour(lane, colour){
+	console.log(colour);
 	lane.surface.clear();
 	lane.surface.beginFill(colour);
 	lane.surface.lineStyle(5,0xFFFFFF);
@@ -155,7 +150,7 @@ function getLaneCentre(lane){
 }
 
 function addVehicle(colour,lane){
-	var size=getVehicleSize(lane.type);
+	var size=getVehicleSize(lane.vehicleType);
 	var colour=getVehicle
 	var yPosition = getLaneCentre();
 	let vehicle = new PIXI.Graphics()

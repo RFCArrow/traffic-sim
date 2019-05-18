@@ -23,13 +23,15 @@ def background_thread():
     timeValue = 0 
     while True:
         socketio.sleep(1)
-        timeValue += 5
+        timeValue += 15
         timeValue = timeValue % (24*60)
         # print("Sending packet: ", count)
-        data = {'CarSaturation': random.randint(0,150),
-                'CycleSaturation': random.randint(0,150),
-                'PedestrianSaturation': random.randint(0,150),
+        data = {'CarSaturation': random.uniform(0,2),
+                'CycleSaturation': random.uniform(0,2),
+                'PedestrianSaturation': random.uniform(0,2),
                 'PollutionScore': random.randint(0,100),
+                'PassengerDelay': random.randint(0,1000),
+                'AverageSpeed': random.randint(0,40),
                 'Time': timeValue}
         socketio.emit('uplink', data)
 
