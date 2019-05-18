@@ -4,9 +4,12 @@
 @import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
 
 #dashboard {
-    background-color: grey;
     font-family: 'Quicksand', 'Fira Sans Condensed', sans-serif;
     height: 100%;
+    background-color: #57e3be;
+/*    background-color: #2a3799; */
+/*    background: linear-gradient(182deg, #57e3be, #2a3799);
+    background-size: 250% 250%; */
 }
 
 #wrapper {
@@ -16,32 +19,75 @@
 
 h1 {
     font-family: 'Quicksand', sans-serif;
-}
-
-p {
-    font-family: 'Fira Sans Condensed', sans-serif;
+    font-size: 2.5em;
 }
 
 /* ––––––– Setup panels ––––––– */
 
 #insight, #para, #vis {
-    margin: 3%;
-    padding: 0.2em 1em;
-    width: 67%;
-    
+    margin: 1em;
+    padding: 0.1em 0.8em;
+    width: 70%;
+    background-color: white;
 }
 
 /* ––––––– Insight panel ––––––– */
 
 #insight {
-    background-color: red;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.info {
+    width: 50%;
+    padding-left: 1em;
+}
+
+.info p {
+    font-size: 1.2em;
+}
+
+.result {
+    width: 50%;
+    display: flex;
+}
+
+/*
+.score, .chart {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.score {
+    z-index: 3;
+    background-color: aqua;
+}
+*/
+
+.chart, .score {
+    position: absolute;
+    top: 0;
+    right:0;
+    width: 300px;
+    align-self: center;
+}
+
+.chart {
+    z-index: 2;
+}
+
+.score {
+    font-size: 4em;
+    z-index: 3;
+    text-align: center;
+    color: #4b2895;
 }
 
 /* ––––––– Parameters panel ––––––– */
 
 #para {
-    background-color: greenyellow;
-    flex-shrink: 0;
     position: fixed;
     width: 20%;
     top: 0;
@@ -50,16 +96,37 @@ p {
 }
 
 .para-block {
-    background-color: white;
-    padding: 0.2em 1em;
-    margin: 1em 0.5em;
+    border: solid 1px #b4b4b4;
+    padding: 0 1em;
+    margin: 0.6em 0em;
+}
+
+.para-icon {
+    position: absolute;
+    right: 0;
+    top: -2em;
+}
+
+.para-name, .timeline {
+    font-weight: bold;
 }
 
 /* ––––––– Visualisation panel ––––––– */
 
-#vis {
-    background-color: blue;
+#vis { 
     margin-top: 0;
+}
+
+#vis .slidecontainer {
+    padding: 0 0 1.3em 0;
+}
+
+.vis-animation {
+    margin-bottom: 1em;
+}
+
+.timeline {
+    font-size: 1.2em;
 }
 
 
@@ -67,10 +134,11 @@ p {
 
 .slidecontainer {
   width: 100%; /* Width of the outside container */
+    position: relative;
 }
 
 /* The slider itself */
-.slider {
+.slider, .slider-vis {
   -webkit-appearance: none;
   width: 100%;
   height: 15px;
@@ -83,7 +151,7 @@ p {
 }
 
 /* Mouse-over effects */
-.slider:hover {
+.slider:hover, .slider-vis:hover {
   opacity: 1; /* Fully shown on mouse-over */
 }
 
@@ -93,7 +161,7 @@ p {
   width: 25px;
   height: 25px;
   border-radius: 50%; 
-  background: #4CAF50;
+  background: #ea7221;
   cursor: pointer;
 }
 
@@ -101,6 +169,24 @@ p {
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: #4CAF50;
+  background: #ea7221;
+  cursor: pointer;
+}
+
+.slider-vis::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%; 
+  background: #4b2895;
+  cursor: pointer;
+}
+
+.slider-vis::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4b2895;
   cursor: pointer;
 }

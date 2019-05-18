@@ -5,9 +5,6 @@
 {% endblock %}
 
 {% block content %}
-	<head>
-		<h1>Traffic Sim<h1/>
-	</head>
 	<!--
     <canvas id="myCanvas" width="600" height="600" style="border:1px solid #000000;">
     </canvas>
@@ -17,46 +14,102 @@
         <!-- Insight panel -->
         <section id="insight">
             <div class="info">
-                <h1>Optimal transport space</h1>
-                <p class="location">Oxford Street, London</p>
+                <h1>City wise</h1>
+                <p class="location">Cheapside, London</p>
                 <p class="day">Monday</p>
+                <!--
                 <p class="time">12:00</p>
                 <p class="">Text block</p>
+                -->
             </div>
-            <div class="output">
+            <div class="result">
+                <div class="chart">
+                    <canvas id="myChart" height="200px"></canvas>
+                </div>
+                <div class="score">
+                    <p class="">000</p>
+                </div>
             </div>
         </section>
         <!-- Parameters panel -->
         <section id="para">
             <div class="para-block">
-                <p class="para-name">Parameter</p>
-                <img class="para-icon"/>
+                <p class="para-name">Pedestrian Space</p>
                 <div class="slidecontainer">
-                    <input type="range" min="1" max="100" value="50" class="slider" id="para-1">
-                    <p id="value-1"></p>
+                    <i class="fas fa-walking para-icon"></i>
+                    <input type="range" step="0.4" min="2" max="8.4" value="4" class="slider" id="pedestrianSlider">
                 </div>
             </div>
             <div class="para-block">
-                <p class="para-name">Parameter</p>
-                <img class="para-icon"/>
+                <p class="para-name">Cycles Lanes</p>
                 <div class="slidecontainer">
-                    <input type="range" min="1" max="100" value="70" class="slider" id="para-2">
-                    <p id="value-2"></p>
+                    <i class="fas fa-bicycle para-icon"></i>
+                    <input type="range" min="1" max="6" value="2" class="slider" id="cycleSlider">
+                </div>
+            </div>
+            <div class="para-block">
+                <p class="para-name">Vehicle Lanes</p>
+                <div class="para-icon"/>
+                    <i class="fas fa-car-side para-icon"></i>
+                    <input type="range" min="1" max="4" value="2" class="slider" id="carSlider">
                 </div>
             </div>
         </section>
         <!-- Visualisation panel -->
         <section id="vis">
-            <p>Vis</p>
-            <div class="para-block">
-                <p class="para-name">Time</p>
-                <img class="para-icon"/>
+            <div class="slidecontainer">
                 <div class="slidecontainer">
-                    <input type="range" min="0" max="1440" value="0" class="slider" id="timeSlider">
-                    <p id="timeSliderPara"></p>
-                </div>
+                <p class="timeline"><i class="far fa-clock"></i> Time of day: <span id="timeSliderPara"></span></p>
+                <input type="range" min="0" max="1440" value="0" class="slider-vis" id="timeSlider">
             </div>
+<!-- ******** ROB INSERT SIM INSIDE DIV BELOW ******** -->
+            <div class="vis-animation" id="animation"></div>
         </section>
+        <!-- Chart JS -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <script>
+            var ctx = document.getElementById('myChart').getContext('2d');
+
+            var blue_gradient = ctx.createLinearGradient(0, 0, 0, 200);
+            blue_gradient.addColorStop(0, '#eaac81');
+            blue_gradient.addColorStop(1, '#ea7221');
+
+            var orange_gradient = ctx.createLinearGradient(0, 0, 0, 0);
+            orange_gradient.addColorStop(0, '#f5e2d4');
+            orange_gradient.addColorStop(1, '#df6f1f');
+
+            var mixedChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    datasets: [
+                        {
+                            // Outer circle
+                            label: 'Recyclability',
+// ******** ROB: CHANGE CHART VALUE ********
+                            data: [70, 100-], //two numbers add to 100
+                            backgroundColor: [
+                                blue_gradient,
+                                'rgba(239, 255, 255, 0.1)'
+                                ],
+                            borderWidth: 0
+                        }, {
+                            // Inner circle
+                            label: 'Returnability',
+                            data: [100, 0],
+                            backgroundColor: [
+                                orange_gradient,
+                                'rgba(255, 255, 255, 0.1)'
+                                ],
+                            borderWidth: 0
+                        },
+                    ],
+                },
+                options: {
+                    cutoutPercentage: 70,
+                    tooltips: {
+                        mode: 'none'
+                    }
+                }
         <!-- Script -->
         <script>
             var slider = document.getElementById("para-1");
@@ -85,6 +138,7 @@
 {{ super() }}
 <link rel = "stylesheet"
     href = "{{url_for('.static', filename='style.css')}}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 {% endblock %}
 
 
