@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8">
+  <title>Project</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- Mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- FONT ICONS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Favicon 
+  <link rel="icon" type="image/png" href="images/favicon.png">
+-->
+</head>
+<body id="dashboard">
+    <div id="wrapper">
+        <!-- Insight panel -->
+        <section id="insight">
+            <div class="info">
+                <h1>City wise</h1>
+                <p class="location">Oxford Street, London</p>
+                <p class="day">Mondays</p>
+                <!--
+                <p class="time">12:00</p>
+                <p class="">Text block</p>
+                -->
+            </div>
+            <div class="result">
+                <div class="chart">
+                    <canvas id="myChart" height="200px"></canvas>
+                </div>
+                <div class="score">
+                    <p class="">000</p>
+                </div>
+            </div>
+        </section>
+        <!-- Parameters panel -->
+        <section id="para">
+            <div class="para-block">
+                <p class="para-name">Cycles</p>
+                <div class="slidecontainer">
+                    <i class="fas fa-bicycle para-icon"></i>
+                    <input type="range" min="1" max="100" value="50" class="slider" id="para-1">
+                    <p id="value-1"></p>
+                </div>
+            </div>
+            <div class="para-block">
+                <p class="para-name">Parameter</p>
+                <img class="para-icon"/>
+                <div class="slidecontainer">
+<!-- ******** ROB GET ICONS: https://fontawesome.com/icons ******** -->
+                    <i class="fas fa-car-side para-icon"></i>
+                    <input type="range" min="1" max="100" value="50" class="slider" id="para-2">
+                    <p id="value-2"></p>
+                </div>
+            </div>
+        </section>
+        <!-- Visualisation panel -->
+        <section id="vis">
+            <div class="slidecontainer">
+                <p class="timeline"><i class="far fa-clock"></i> Time of day: <span id="value-3"></span></p>
+                <input type="range" min="1" max="100" value="50" class="slider-vis" id="para-3">
+            </div>
+<!-- ******** ROB INSERT SIM INSIDE DIV BELOW ******** -->
+            <div class="vis-animation">(Insert visualisation)</div>
+        </section>
+        <!-- Input setup inf
+        <section id="input-form">
+            <form action="/action_page.php">
+                Location:<input type="text"><br>
+                  <select name="week-days" size="7">
+                    <option value="monday">Monday</option>
+                    <option value="tuesday">Tuesday</option>
+                    <option value="wednesday">Wednesday</option>
+                    <option value="thursday">Thursday</option>
+                    <option value="friday">Friday</option>
+                    <option value="saturday">Saturday</option>
+                    <option value="sunday">Sunday</option>
+                  </select><br>
+                Date:
+                <input type="date" name="input-date"><br>
+                Date range: between 
+                <input type="date" name="input-date-range" max="1979-12-31"> and 
+                <input type="date" name="input-date-range" min="2000-01-02"><br>
+                <input type="submit">
+            </form>
+        </section>
+        -->
+        <!-- Chart JS -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <script>
+            var ctx = document.getElementById('myChart').getContext('2d');
+
+            var blue_gradient = ctx.createLinearGradient(0, 0, 0, 200);
+            blue_gradient.addColorStop(0, '#eaac81');
+            blue_gradient.addColorStop(1, '#ea7221');
+
+            var orange_gradient = ctx.createLinearGradient(0, 0, 0, 0);
+            orange_gradient.addColorStop(0, '#f5e2d4');
+            orange_gradient.addColorStop(1, '#df6f1f');
+
+            var mixedChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    datasets: [
+                        {
+                            // Outer circle
+                            label: 'Recyclability',
+// ******** ROB: CHANGE CHART VALUE ********
+                            data: [70, 30], //two numbers add to 100
+                            backgroundColor: [
+                                blue_gradient,
+                                'rgba(239, 255, 255, 0.1)'
+                                ],
+                            borderWidth: 0
+                        }, {
+                            // Inner circle
+                            label: 'Returnability',
+                            data: [100, 0],
+                            backgroundColor: [
+                                orange_gradient,
+                                'rgba(255, 255, 255, 0.1)'
+                                ],
+                            borderWidth: 0
+                        },
+                    ],
+                },
+                options: {
+                    cutoutPercentage: 70,
+                    tooltips: {
+                        mode: 'none'
+                    }
+                }
+            });
+        </script>
+        <!-- Slider JS -->
+        <script>
+            var slider = document.getElementById("para-3");
+            var output = document.getElementById("value-3");
+            output.innerHTML = slider.value;
+            slider.oninput = function() {
+              output.innerHTML = this.value;
+            }
+        </script>
+    </div>
+</body>
