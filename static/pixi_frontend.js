@@ -24,12 +24,12 @@ addLane("car", "west");
 addLane("cycle", "west");
 addLane("pedestrian", "west");
 
-addVehicle(lanes[0]);
-addVehicle(lanes[1]);
-addVehicle(lanes[2]);
-addVehicle(lanes[3]);
-addVehicle(lanes[4]);
-addVehicle(lanes[5]);
+// addVehicle(lanes[0]);
+// addVehicle(lanes[1]);
+// addVehicle(lanes[2]);
+// addVehicle(lanes[3]);
+// addVehicle(lanes[4]);
+// addVehicle(lanes[5]);
 
 
 function renderRoad(roadWidth, yPosition){
@@ -73,6 +73,7 @@ function getLaneYPosition(lane){
 	var yPosition = 0;
 	for(let i=0;i<lanes.length;i++){
 		if(lane.uuid==lanes[i].uuid){
+
 			return yPosition;
 		}
 		yPosition += lanes[i].width;
@@ -85,12 +86,12 @@ function generateUUID(){
 }
 
 function addLane(vehicleType, direction){
-	console.log("Adding Lane");
 	var lane = new Object();
 	lane.uuid=generateUUID();
 	lanes.push(lane);
 	lane.width=getLaneWidthByVehicleType(vehicleType);
 	lane.yPosition=getLaneYPosition(lane);
+	console.log(lane.yPosition);
 	lane.vehicleType=vehicleType;
 	lane.colour=0x807E78;
 	lane.vehicles = new Array();
@@ -101,6 +102,11 @@ function addLane(vehicleType, direction){
 	lane.surface.endFill();
 	app.stage.addChild(lane.surface);
 	lane.direction=direction;
+}
+
+function addLaneText(lane){
+	var laneText = new PIXI.Text()
+
 }
 
 function adjustNumberOfLanes(desiredNumberOfLanes, vehicleType){
@@ -118,17 +124,23 @@ function adjustNumberOfLanes(desiredNumberOfLanes, vehicleType){
 		addLane(vehicleType, "west");
 		lanesFound += 1;
 	}
+	redrawLanes();
 }
 
 function deleteLane(lane){
 	//Mark lane for closure
 	//Wait until traffic clears
-	console.log("Deleting Lane");
 	for(let i=0;i<lanes.length;i++){
 		if(lane.uuid == lanes[i].uuid){
-			lanes=lanes.splice(i,1);
+			lanes.splice(i,1);
+			lane.surface.clear();
+			return;
 		}
 	}
+	console.log(lanes);
+}
+
+function redrawLanes(){
 
 	for(let i=0;i<lanes.length;i++){
 		lanes[i].yPosition=getLaneYPosition(lanes[i]);
@@ -206,10 +218,10 @@ function updateVehicle(lane){
 // 		//redraw vehicle
 // 		//increment vehichle position
 		if(lane.direction == "east"){
-			//lane.vehicles[i].xPosition += lane.vehicles[i].velocity;
+			lane.vehicles[i].xPosition += lane.vehicles[i].velocity;
 		}
 		if(lane.direction == "west"){
-			//lane.vehicles[i].xPosition -= lane.vehicles[i].velocity;
+			lane.vehicles[i].xPosition -= lane.vehicles[i].velocity;
 		}
 	}
 }
@@ -230,6 +242,7 @@ function addVehicle(lane){
 	var yPosition = getLaneCentre(lane);
 	var xPosition = lane.direction == "east" ? 0 : app.renderer.width;
 	let vehicle = new PIXI.Graphics()
+	vehicle.velocity = 
 	vehicle.beginFill(colour);
 	vehicle.drawCircle(xPosition,yPosition,size);
 	vehicles.push(vehicle);
