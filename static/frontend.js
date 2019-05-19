@@ -45,11 +45,11 @@ function handlePedestrianLanes(data){
 
 function handleStatistics(data){
 	var pollutionText = document.getElementById("pollutionScore");
-	pollutionText.innerHTML = "CO2 Emissions: "+data.PollutionScore.toString()+"kg/hr";
+	pollutionText.innerHTML = data.PollutionScore.toString();
 	var speedText = document.getElementById("speedScore");
-	speedText.innerHTML = data.AverageSpeed.toString()+"mph";
+	speedText.innerHTML = data.AverageSpeed.toString();
 	var delayText = document.getElementById("delayScore");
-	delayText.innerHTML = data.PassengerDelay.toString()+"mins";
+	delayText.innerHTML = data.PassengerDelay.toString();
 }
 
 function handle_uplink(data){

@@ -18,11 +18,12 @@ var lanes = new Array();
 
 
 addLane("pedestrian", "east");
-addLane("cycle", "east");
-addLane("car", "east");
-addLane("car", "west");
-addLane("cycle", "west");
 addLane("pedestrian", "west");
+addLane("cycle", "east");
+addLane("cycle", "west");
+addLane("cycle", "west");
+addLane("car", "west");
+
 
 // addVehicle(lanes[0]);
 // addVehicle(lanes[1]);

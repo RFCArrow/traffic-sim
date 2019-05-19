@@ -25,8 +25,8 @@ def background_thread():
     global numberOfCycleLanes
     global numberOfPedestrianLanes
     timeValue = 0
-    numberOfCarLanes = 2
-    numberOfCycleLanes = 2
+    numberOfCarLanes = 1
+    numberOfCycleLanes = 3
     numberOfPedestrianLanes = 4
     while True:
         socketio.sleep(0.25)
