@@ -81,14 +81,17 @@ function setup_downlink(socket){
 	console.log(carSlide.value);
 	carSlide.oninput = function(){
 		socket.emit('cars', carSlide.value);
+		adjustNumberOfLanes(carSlide.value,"car");
 	};
 	var cycleSlide = document.getElementById("cycleSlider");
 	cycleSlide.oninput = function(){
 		socket.emit('cycles', cycleSlide.value);
+		adjustNumberOfLanes(cycleSlide.value,"cycle");
 	};
 	var pedestrianSlide = document.getElementById("pedestrianSlider");
 	pedestrianSlide.oninput = function(){
 		socket.emit('pedestrians', pedestrianSlide.value);
+		adjustNumberOfLanes(pedestrianSlide.value,"pedestrian");
 	};
 }
 

@@ -24,20 +24,12 @@ addLane("car", "west");
 addLane("cycle", "west");
 addLane("pedestrian", "west");
 
-console.log("Adding 1");
 addVehicle(lanes[0]);
-console.log("Adding 2");
 addVehicle(lanes[1]);
-console.log("Adding 3");
 addVehicle(lanes[2]);
-console.log("Adding 4");
 addVehicle(lanes[3]);
-console.log("Adding 5");
 addVehicle(lanes[4]);
-console.log("Adding 6");
 addVehicle(lanes[5]);
-
-updateLaneColour(lanes[1], 0xF0FFE0);
 
 
 function renderRoad(roadWidth, yPosition){
@@ -93,15 +85,17 @@ function generateUUID(){
 }
 
 function addLane(vehicleType, direction){
+	console.log("Adding Lane");
 	var lane = new Object();
 	lane.uuid=generateUUID();
 	lanes.push(lane);
 	lane.width=getLaneWidthByVehicleType(vehicleType);
 	lane.yPosition=getLaneYPosition(lane);
 	lane.vehicleType=vehicleType;
+	lane.colour=0x807E78;
 	lane.vehicles = new Array();
 	lane.surface = new PIXI.Graphics();
-	lane.surface.beginFill(0x807E78);
+	lane.surface.beginFill(lane.colour);
 	lane.surface.lineStyle(5,0xFFFFFF);
 	lane.surface.drawRect(0,lane.yPosition,app.renderer.width,lane.width);
 	lane.surface.endFill();
@@ -109,14 +103,36 @@ function addLane(vehicleType, direction){
 	lane.direction=direction;
 }
 
+function adjustNumberOfLanes(desiredNumberOfLanes, vehicleType){
+	var lanesFound = 0;
+	for(let i=0;i<lanes.length;i++){
+		if(lanes[i].vehicleType == vehicleType){
+			lanesFound += 1;
+			if(lanesFound > desiredNumberOfLanes){
+				deleteLane(lanes[i]);
+			}
+
+		}
+	}
+	while(lanesFound < desiredNumberOfLanes){
+		addLane(vehicleType, "west");
+		lanesFound += 1;
+	}
+}
+
 function deleteLane(lane){
 	//Mark lane for closure
 	//Wait until traffic clears
+	console.log("Deleting Lane");
 	for(let i=0;i<lanes.length;i++){
 		if(lane.uuid == lanes[i].uuid){
 			lanes=lanes.splice(i,1);
 		}
+	}
+
+	for(let i=0;i<lanes.length;i++){
 		lanes[i].yPosition=getLaneYPosition(lanes[i]);
+		updateLanePosition(lanes[i]);
 	}
 }
 
@@ -148,12 +164,23 @@ function getVehicleColour(vehicleType){
 }
 
 function updateLaneColour(lane, colour){
+	lane.colour=colour;
 	lane.surface.clear();
 	lane.surface.beginFill(colour);
 	lane.surface.lineStyle(5,0xFFFFFF);
 	lane.surface.drawRect(0,lane.yPosition,app.renderer.width,lane.width);
 	lane.surface.endFill();
 	//app.stage.addChild(lane.surface);
+}
+
+function updateLanePosition(lane){
+	lane.surface.clear();
+	lane.surface.beginFill(lane.colour);
+	lane.surface.lineStyle(5,0xFFFFFF);
+	lane.surface.drawRect(0,lane.yPosition,app.renderer.width,lane.width);
+	lane.surface.endFill();
+
+
 }
 
 function getLaneCentre(lane){
@@ -163,9 +190,9 @@ function getLaneCentre(lane){
 
 
 
-// function updateVehicle(lane){
-// 	for(let i=0;i<lane.vehicles.length;i++){
-// 		if(i>0){
+function updateVehicle(lane){
+	for(let i=0;i<lane.vehicles.length;i++){
+		if(i>0){
 // 			if(distanceToNextCar(lane, i) < 5){
 // 				//decrease speed
 // 				var acceleratingVelocity = Math.max((lane.vehicles[i-1].velocity-1), 0);
@@ -175,17 +202,17 @@ function getLaneCentre(lane){
 // 				var acceleratingVelocity = Math.max((lane.vehicles[i-1].velocity+1), laneSpeed);
 // 				lane.vehicles[i].velocity = decleratingVelocity;
 // 			}
-// 		}
+ 		}
 // 		//redraw vehicle
 // 		//increment vehichle position
-// 		if(lane.direction == "east"){
-// 			lane.vehicles[i].xPosition += lane.vehicles[i].velocity;
-// 		}
-// 		if(lane.direction == "west"){
-// 			lane.vehicles[i].xPosition -= lane.vehicles[i].velocity;
-// 		}
-// 	}
-// }
+		if(lane.direction == "east"){
+			//lane.vehicles[i].xPosition += lane.vehicles[i].velocity;
+		}
+		if(lane.direction == "west"){
+			//lane.vehicles[i].xPosition -= lane.vehicles[i].velocity;
+		}
+	}
+}
 
 function distanceToNextCar(lane, i){
 	//TODO FIX!!!!
