@@ -70,12 +70,25 @@ function displayTimeOnSlider(){
 
 function setup_downlink(socket){
 	var slider = document.getElementById("timeSlider");
-	var sliderText = document.getElementById("timeSliderPara")
+	var sliderText = document.getElementById("timeSliderPara");
 	slider.oninput = function(){
 		// Round slider to nearest 15 minutes
-		slider.value = slider.value - (slider.value % 15)
+		slider.value = slider.value - (slider.value % 15);
 		socket.emit('time', slider.value);
 		displayTimeOnSlider();
+	};
+	var carSlide = document.getElementById("carSlider");
+	console.log(carSlide.value);
+	carSlide.oninput = function(){
+		socket.emit('cars', carSlide.value);
+	};
+	var cycleSlide = document.getElementById("cycleSlider");
+	cycleSlide.oninput = function(){
+		socket.emit('cycles', cycleSlide.value);
+	};
+	var pedestrianSlide = document.getElementById("pedestrianSlider");
+	pedestrianSlide.oninput = function(){
+		socket.emit('pedestrians', pedestrianSlide.value);
 	};
 }
 

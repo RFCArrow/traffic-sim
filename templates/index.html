@@ -23,9 +23,6 @@
                 -->
             </div>
             <div class="result">
-                <div class="chart">
-                    <canvas id="myChart" height="200px"></canvas>
-                </div>
                 <div class="score" >
                     <p class=""id="pollutionScore">kg CO2</p>
                     <p class=""id="delayScore">mins</p>
@@ -67,60 +64,6 @@
 <!-- ******** ROB INSERT SIM INSIDE DIV BELOW ******** -->
             <div class="vis-animation" id="animation"></div>
         </section>
-        <!-- Chart JS -->
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-        <script>
-            var ctx = document.getElementById('myChart').getContext('2d');
-
-            var blue_gradient = ctx.createLinearGradient(0, 0, 0, 200);
-            blue_gradient.addColorStop(0, '#eaac81');
-            blue_gradient.addColorStop(1, '#ea7221');
-
-            var orange_gradient = ctx.createLinearGradient(0, 0, 0, 0);
-            orange_gradient.addColorStop(0, '#f5e2d4');
-            orange_gradient.addColorStop(1, '#df6f1f');
-
-            var mixedChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    datasets: [
-                        {
-                            // Outer circle
-                            label: 'Recyclability',
-// ******** ROB: CHANGE CHART VALUE ********
-                            data: [70, 100-], //two numbers add to 100
-                            backgroundColor: [
-                                blue_gradient,
-                                'rgba(239, 255, 255, 0.1)'
-                                ],
-                            borderWidth: 0
-                        }, {
-                            // Inner circle
-                            label: 'Returnability',
-                            data: [100, 0],
-                            backgroundColor: [
-                                orange_gradient,
-                                'rgba(255, 255, 255, 0.1)'
-                                ],
-                            borderWidth: 0
-                        },
-                    ],
-                },
-                options: {
-                    cutoutPercentage: 70,
-                    tooltips: {
-                        mode: 'none'
-                    }
-                }
-        <!-- Script -->
-        <script>
-            var slider = document.getElementById("para-1");
-            var output = document.getElementById("value-1");
-            output.innerHTML = slider.value;
-            slider.oninput = function() {
-              output.innerHTML = this.value;
-            }
-        </script>
     </div>
 </body>
 
