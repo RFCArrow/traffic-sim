@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content %}
+
 	<!--
     <canvas id="myCanvas" width="600" height="600" style="border:1px solid #000000;">
     </canvas>
@@ -14,10 +15,10 @@
         <!-- Insight panel -->
         <section id="insight">
             <div class="info">
-                <h1>CityWise</h1>
+                <h1>City Wise</h1>
                 <p class="location">Cheapside, London</p>
-                <p class="day">Monday</p>
                 <!--
+                <p class="day">Monday</p>
                 <p class="time">12:00</p>
                 <p class="">Text block</p>
                 -->
@@ -26,47 +27,60 @@
                 <div class="chart">
                     <canvas id="myChart" height="200px"></canvas>
                 </div>
+                <!--
                 <div class="score" >
                     <p class=""id="pollutionScore">kg CO2</p>
                     <p class=""id="delayScore">mins</p>
                     <p class=""id="speedScore">mph</p>
+                </div>
+-->
+                <div class="slidecontainer">
+                <p class="timeline"><i class="far fa-clock"></i> Time of day: <span id="timeSliderPara"></span></p>
+                <input type="range" min="0" max="1440" value="0" class="slider-vis" id="timeSlider">
+                
+                <p class="js-output">CO<sub>2</sub> emissions: <span id="pollutionScore"> kg/hr</span></p>
+                <p class="js-output">Delay: <span id="delayScore">  mins</span></p>
+                <p class="js-output">Speed: <span id="speedScore">  mph</span></p>
                 </div>
             </div>
         </section>
         <!-- Parameters panel -->
         <section id="para">
             <div class="para-block">
-                <p class="para-name">Pedestrian Space</p>
+                <p class="para-name">Pedestrian space</p>
                 <div class="slidecontainer">
                     <i class="fas fa-walking para-icon"></i>
                     <input type="range" step="0.4" min="2" max="8.4" value="4" class="slider" id="pedestrianSlider">
                 </div>
             </div>
             <div class="para-block">
-                <p class="para-name">Cycles Lanes</p>
+                <p class="para-name">Cycle lanes</p>
                 <div class="slidecontainer">
                     <i class="fas fa-bicycle para-icon"></i>
                     <input type="range" min="1" max="6" value="2" class="slider" id="cycleSlider">
                 </div>
             </div>
             <div class="para-block">
-                <p class="para-name">Vehicle Lanes</p>
-                <div class="para-icon"/>
+                <p class="para-name">Vehicle lanes</p>
+                <div class="slidecontainer">
                     <i class="fas fa-car-side para-icon"></i>
                     <input type="range" min="1" max="4" value="2" class="slider" id="carSlider">
                 </div>
             </div>
         </section>
-        <!-- Visualisation panel -->
+        <!-- Visualisation panel
         <section id="vis">
             <div class="slidecontainer">
                 <div class="slidecontainer">
                 <p class="timeline"><i class="far fa-clock"></i> Time of day: <span id="timeSliderPara"></span></p>
                 <input type="range" min="0" max="1440" value="0" class="slider-vis" id="timeSlider">
+                </div>
             </div>
-<!-- ******** ROB INSERT SIM INSIDE DIV BELOW ******** -->
+<!-- ******** ROB INSERT SIM INSIDE DIV BELOW ******** 
             <div class="vis-animation" id="animation"></div>
+
         </section>
+-->
         <!-- Chart JS -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
         <script>

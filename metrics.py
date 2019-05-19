@@ -20,7 +20,7 @@ def calculateMetrics(inputt):
                           'average_speed': 28.0}}
 
 
-    filepath = "/home/traffic-sim/datasets/modal_demand.csv"
+    filepath = "/Users/vivianeli/Desktop/traffic-sim/datasets/modal_demand.csv"
     simulationData = pd.read_csv(filepath)
 
     hello = simulationData[simulationData['Time']== inputt['time']]
