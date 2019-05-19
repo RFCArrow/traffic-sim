@@ -23,17 +23,20 @@ def background_thread():
     global timeValue
     global numberOfCarLanes
     global numberOfCycleLanes
-    global numberOfBikeLanes
+    global numberOfPedestrianLanes
     timeValue = 0
+    numberOfCarLanes = 2
+    numberOfCycleLanes = 2
+    numberOfPedestrianLanes = 4
     while True:
         socketio.sleep(0.25)
         timeValue += 15
         timeValue = timeValue % (24*60)
         # print("Sending packet: ", count)
         dataFromClient = { 'time':timeValue,
-                            'flexi_count':1,
-                            'ped_dim':3.1,
-                            'road_count':2}
+                            'flexi_count':numberOfCycleLanes,
+                            'ped_dim':numberOfPedestrianLanes,
+                            'road_count':numberOfCarLanes}
         dataToClient = calculateMetrics(dataFromClient);
         data = {'CarSaturation': dataToClient['saturations']['sat_vehicles'],
                 'CycleSaturation': dataToClient['saturations']['sat_bikes'],
@@ -72,6 +75,21 @@ def time(receivedValue):
     timeValue = timeValue - (timeValue%5)
     print('Updated Time Value: ', timeValue)
 
+@socketio.on('cycles')
+def cycles(receivedValue):
+    global numberOfCycleLanes;
+    numberOfCycleLanes = int(receivedValue);
+
+@socketio.on('cars')
+def cars(receivedValue):
+    global numberOfCarLanes;
+    numberOfCarLanes = int(receivedValue);
+
+@socketio.on('pedestrians')
+def pedestrians(receivedValue):
+    global numberOfPedestrianLanes;
+    numberOfPedestrianLanes = int(receivedValue);
+
 @socketio.on('uplink')
 def socket_uplink(data):
     socketio.emit(data)
@@ -82,6 +100,4 @@ if __name__ == '__main__':
 
     finally:
         print('Shutting down server')
-
-
 
